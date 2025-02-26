@@ -2,6 +2,12 @@ CS4100 Project Proposal
 Members:
 Jacob Wu-Chen, Paolo Lanaro
 
+## Table of Contents
+- [Problem Description](#problem_description)
+- [Algorithms](#algorithms)
+- [Results](#results)
+- [Links](#links)
+
 ## Problem Description
 Creating video game levels can be tedious as it requires time and energy to think of new designs that many just don’t have the time for. Artificial Intelligence has been used in the realm of video games through things like genetic algorithms and evolutionary algorithms, which allow developers to cut down on time doing meaningless tasks. 
 
