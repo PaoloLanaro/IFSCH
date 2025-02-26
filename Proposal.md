@@ -33,7 +33,8 @@ Since these games are similar to the ones we discussed in class, such as chess, 
 The results we expect to show would be evaluations of game levels created by our algorithms. We would plan to use heuristics to evaluate the validity of such game levels to determine if our output levels match the input that we request. It’s also important that our output levels are able to be completed or finished. 
 
 For example, in the case of a Mario level, we want the player to be able to complete the level and not get stuck at some point during the level. Most importantly, we want creative designs that will challenge the player and excite them to use our model. 
-Links:
+
+##Links:
 https://www.sciencedirect.com/science/article/abs/pii/S0164121222000292 [1]
 https://dl.acm.org/doi/pdf/10.1145/2071423.2071433 [2]
 https://github.com/TheVGLC/TheVGLC/tree/master/Super%20Mario%20Bros%202 
