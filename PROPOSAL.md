@@ -47,3 +47,6 @@ https://www.sciencedirect.com/science/article/abs/pii/S0164121222000292 [1]
 https://dl.acm.org/doi/pdf/10.1145/2071423.2071433 [2]
 
 https://github.com/TheVGLC/TheVGLC/tree/master/Super%20Mario%20Bros%202 
+
+# Resources
+# pytorch[https://pytorch.org/]
