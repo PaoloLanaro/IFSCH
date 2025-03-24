@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-def canny_thres_image(file_path, weak_th = None, strong_th = None):
+def canny_thres_image(file_path, weak_th = 50, strong_th = 150):
     image = cv2.imread(file_path)
     
     image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) 
@@ -79,9 +79,10 @@ def canny_thres_image(file_path, weak_th = None, strong_th = None):
     return image
     #return mag
 
-pic = canny_thres_image('data/V0/1.jpg')
-plt.figure() 
-f, plots = plt.subplots(2, 1)  
-plots[0].imshow(cv2.imread('data/V0/1.jpg')) 
-plots[1].imshow(pic) 
-plt.show()
+if __name__ == '__main__':
+    pic = canny_thres_image('data/V0/1.jpg')
+    plt.figure() 
+    f, plots = plt.subplots(2, 1)  
+    plots[0].imshow(cv2.imread('data/V0/1.jpg')) 
+    plots[1].imshow(pic) 
+    plt.show()
