@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
     Image is a file path
 """
 def detect_hold(image):
+    print(f'Segmenting image {image}')
     canny = canny_thres_image(image)
     otsu_image = get_image(image)
     otsu = otsu_thresh_image(otsu_image)
@@ -22,11 +23,19 @@ def detect_hold(image):
             if np.array_equal(canny[i_y, i_x], [0, 255, 0]):
                 image[i_y, i_x] = (0, 255, 0)
             elif np.array_equal(otsu[i_y, i_x], [0, 0, 0]):
-                image[i_y, i_x] = (0, 0, 0)
+                image[i_y, i_x] = (255, 0, 0)
     return image
 if __name__ == '__main__':
-    pic = detect_hold('data/V0/1.jpg')
-    f, plots = plt.subplots(2, 1)  
-    plots[0].imshow(cv2.imread('data/V0/1.jpg'))
-    plots[1].imshow(pic) 
+    f, plots = plt.subplots(8, 2, figsize=(8,20))  
+    # plots[0].imshow(cv2.imread('data/V0/1.jpg'))
+    # plots[1].imshow(pic) 
+    for i in range(8):
+        plots[i, 0].imshow(cv2.imread(f'data/V{i}/1.jpg'))
+        plots[i, 0].axis('off')
+        plots[i, 0].set_title(f'Original {i}')
+
+        plots[i, 1].imshow(detect_hold(f'data/V{i}/1.jpg'))  # Assuming pic_list contains 10 processed images
+        plots[i, 1].axis('off')
+        plots[i, 1].set_title(f'Processed {i}')
+
     plt.show()
