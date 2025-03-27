@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-def canny_thres_image(file_path, weak_th = 50, strong_th = 150):
+def canny_thres_image(file_path, weak_th = 50, strong_th = 150, color=(0,0,0)):
     image = cv2.imread(file_path)
     
     image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) 
