@@ -26,6 +26,7 @@ def detect_hold(image):
     
     height, width = otsu.shape[:2]
     image = cv2.imread(image)
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     for i_x in range(width): 
         for i_y in range(height): 
             # compare ostu[i_y, i_x] with canny[i_y, i_x]
@@ -40,9 +41,8 @@ if __name__ == '__main__':
     f, plots = plt.subplots(8, 4, figsize=(20,10))  
     for i in range(8):
         plt.clf()
-
         plt.subplot(1, 2, 1)
-        plt.imshow(cv2.imread(f'data/V{i}/1.jpg'))
+        plt.imshow(cv2.cvtColor(cv2.imread(f'data/V{i}/1.jpg'), cv2.COLOR_BGR2RGBA))
         plt.title(f'Original {i}')
 
         plt.subplot(1, 2, 2)
