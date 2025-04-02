@@ -1,4 +1,4 @@
-from canny import canny_thres_image, get_image
+from canny import canny_thres_image, get_image, canny_thres_color
 from otsu import otsu_thresh_image
 import cv2
 import numpy as np
@@ -15,7 +15,7 @@ def detect_hold(image):
     print(f'Segmenting image {image}')
 
     canny_start_time = datetime.datetime.now()
-    canny = canny_thres_image(image)
+    canny = canny_thres_color(image, color='blue')
     canny_end_time = datetime.datetime.now()
     print(f'Canny runtime {canny_end_time-canny_start_time}')
     otsu_image = get_image(image)
@@ -30,12 +30,10 @@ def detect_hold(image):
     for i_x in range(width): 
         for i_y in range(height): 
             # compare ostu[i_y, i_x] with canny[i_y, i_x]
-            # print('otsu', otsu[i_y, i_x])
-            # print('canny', canny[i_y, i_x])
             if np.array_equal(canny[i_y, i_x], [0, 255, 0]):
                 image[i_y, i_x] = (0, 255, 0)
-            elif np.array_equal(otsu[i_y, i_x], [0, 0, 0]):
-                image[i_y, i_x] = (255, 0, 0)
+            # elif np.array_equal(otsu[i_y, i_x], [0, 0, 0]):
+            #     image[i_y, i_x] = (255, 0, 0)
     return image
 if __name__ == '__main__':
     f, plots = plt.subplots(8, 4, figsize=(20,10))  
@@ -48,5 +46,5 @@ if __name__ == '__main__':
         plt.subplot(1, 2, 2)
         plt.imshow(detect_hold(f'data/V{i}/1.jpg'))  # Assuming pic_list contains 10 processed images
         plt.title(f'Processed {i}')
-        plt.savefig(f'data/V{i}/1_annotated.jpg')
+        plt.savefig(f'data/blue/V{i}_blue.jpg')
     
