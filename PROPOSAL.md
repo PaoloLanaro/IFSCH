@@ -9,24 +9,20 @@ Jacob Wu-Chen, Paolo Lanaro
 - [Links](#links)
 
 ## Problem Description
-Creating video game levels can be tedious as it requires time and energy to think of new designs that many just don’t have the time for. Artificial Intelligence has been used in the realm of video games through things like genetic algorithms and evolutionary algorithms, which allow developers to cut down on time doing meaningless tasks. 
+As climbers, we both understand the realm of opportunity for using artificial intelligence in climbing. More specifically, we intend on using image segmentation and classification models such as CNN or ViTs to identify certain types of climbs. Types of climbs can be classified based on characteristics such as how small the holds are, what types of moves the climb requires, how long the climb is in feet, and much more. In this problem, our inputs would just be images of climbs. 
 
-As we input more data or have the algorithms run more, they can learn about the game and adapt to solve the given issue. As such, the question that we have decided to face will be creating new levels of differing difficulty, based on user input, and evaluating the validity of such levels. 
+Based on the climb, our models would analyze it and produce outputs such as how difficult the climb is, which part of the climb is most difficult, etc. The idea for this project stems from a lack of “standardization” over climbing grades in general, but specifically from gym to gym. This may seem like an issue because of the requirement for “clean data”, but there’s been research into the difficulty grading and there’s a common difficulty range (average) that will encompass many climbs of a given difficulty. 
 
-As noted in their paper[1] “A co-evolutionary genetic algorithms approach to detect video game bugs”, the authors mention “Hence, utilizing automated agents can optimize and support the playtesting process … where agents can be used to support finding bugs and invalid states, improving the level design and visuals, or enhancing the challenges and fun factor.” 
+Our project idea is that if we can get an AI / ML model to begin to recognize and understand climb difficulties, it could be offered as a sort of “unbiased referee”. You can imagine a world in which every climbing gym uses our model, and suddenly climbing difficulties are standardized over different cities and countries. We want to focus on the recognition and grading of climbs as that allows this idea to branch off further into route move recommendations–a model telling you the “optimal path”– and other forms of analysis including the “crux” or most difficult part of the climb. 
 
-Genetic algorithms may provide crucial help for under-resourced developers who may not have the time to test and check each game level. We aim to solve the issue of level generation, allowing for levels that are completable, so that unique, never before seen, levels can be generated with no effort. 
+From a computational perspective, we’d receive images (and possibly videos) of routes as input, and we’d output either singular difficulties or a difficulty range with some certainty score. Images would have to be analyzed and an intermediary step would be using those converted data points from the image to then actually make the predictions and general “AI”. 
 
-The inputs will be previously created, and existing, levels, such as those found on the Video Game Level Corpus and we expect our output to be levels that can be played to their finish goals.
+It’s of special interest to both of us because, as aforementioned, we’re both climbers and have realized that our gym is beginning to grade harder and harder climbs that don’t feel realistic. With something like a model that is able to give a better estimation of the climb, we could get the “real difficulties” of a climb. We’d be able to gather images of climbing by both using existing datasets on Kaggle and Github as well as recruiting our family and friends that climb to take pictures of gyms in other cities, states, and countries. The truth values to train the models would be the somewhat subjective (but on average correct) grades for the climbs and a way to evaluate model performance would be using it against human benchmarks.
+
 
 
 ## Algorithms
-We will be exploring the usage of genetic algorithms for this application. More broadly, we will be exploring evolutionary algorithms in this context. This concept is by no means new, however, we will be investigating how genetic algorithms can best be applied to creating new video game levels, something that can be quite time-consuming.  
-
-As one paper[2] stated, “we believe that, with proper changes, a similar approach can be used for a generic platform game. The most significant aspect that guided that inspiration is that this game, like many others, has areas represented in a grid.” Genetic algorithms are so versatile because they can be utilized as long as the game state can be represented as a graph. 
-
-Since these games are similar to the ones we discussed in class, such as chess, we can use state space graphs or trees to represent branching factors and moves. Genetic algorithms are also a new form of algorithm for both of us, and we’ve never had experience developing them, so we hope this project allows us to further our understanding of such algorithms.
-
+We plan to use image processing AI algorithms–CNN and ViTs–to solve the problem. We’ll use two AI models—CNNs and Vision Transformers (ViTs)—to analyze climbing route images. For the CNN, we’ll start with a simple model that’s already good at recognizing patterns in images. We’ll modify it to do three tasks: predict the climb’s difficulty (like guessing a V3 or V5 grade), identify hold types (jugs, crimps, slopers), and highlight the toughest section using heatmaps. CNNs work well here because they’re great at spotting details like hold shapes and spacing, which are key for grading climbs. For the ViT, we’ll break the image into smaller parts and analyze how they relate to each other (e.g., seeing if holds are spread out or clustered). To improve accuracy, we’ll combine the ViT with the CNN so the model uses both close-up details (from the CNN) and the “big picture” (from the ViT). This hybrid approach helps the AI understand the route’s overall complexity. Both models will be trained on climbing images with known grades and hold types, and we’ll test their accuracy against human climbers’ ratings. We’ll keep the project manageable by starting with a small dataset (100-200 images) and using frameworks like TensorFlow/PyTorch to build the models. If the hybrid ViT-CNN is too complex, we’ll focus on refining the CNN alone.
 
 
 
@@ -36,9 +32,7 @@ Since these games are similar to the ones we discussed in class, such as chess, 
 
 
 ## Results
-The results we expect to show would be evaluations of game levels created by our algorithms. We would plan to use heuristics to evaluate the validity of such game levels to determine if our output levels match the input that we request. It’s also important that our output levels are able to be completed or finished. 
-
-For example, in the case of a Mario level, we want the player to be able to complete the level and not get stuck at some point during the level. Most importantly, we want creative designs that will challenge the player and excite them to use our model. 
+The results we would expect would be confidence levels of predictions using our models. This could be in the form of an mse or something similar. We would also expect to produce a segmented image that highlights which parts of the climb are more difficult and which are easier. This is mentioned above. We’ll also use outputs from our Vision Transformer by classifying different parts of the climb and relating them to the difficulty. As we combine the ViT with the CNN, we will be able to analyze the difficulty of climbs and allow the user to visually see the climb split into distinct sections. 
 
 ## Links
 

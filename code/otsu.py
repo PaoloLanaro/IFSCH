@@ -57,5 +57,6 @@ def otsu_thresh_image(image):
             optimal_threshold = t
 
     binary_array = np.where(img_arr > optimal_threshold, 255, 0).astype(np.uint8)
-
-    return Image.fromarray(binary_array)
+    # returning just the binary array bc it allows us to compare with canny
+    return binary_array
+    #return Image.fromarray(binary_array)

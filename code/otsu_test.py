@@ -59,5 +59,5 @@ def test_otsu_implementation(file_path):
         print(f"\nTest failed: {str(e)}")
 
 if __name__ == "__main__":
-    test_image_path = './data/V0/1.jpg'
+    test_image_path = 'data/V0/1.jpg'
     test_otsu_implementation(test_image_path)
