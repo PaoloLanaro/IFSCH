@@ -19,3 +19,9 @@ https://www.kaggle.com/datasets/tomasslama/indoor-climbing-gym-hold-segmentation
 ## Experiments
 
 ## Conclusion
+
+
+# Commands
+- `python data_prep.py --images ../data/.raw_image --annotations ../data/.segmented_images/merged_project.json --visualize`
+- `python unn.py`
+- `python unn_test.py --model best_model.pth --test_images data/test/images --test_annotations data/test/annotations`
