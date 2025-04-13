@@ -1,5 +1,4 @@
 from canny import canny_thres_color
-from otsu import otsu_thresh_image
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
