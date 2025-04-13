@@ -21,7 +21,10 @@ https://www.kaggle.com/datasets/tomasslama/indoor-climbing-gym-hold-segmentation
 ## Conclusion
 
 
-# Commands
-- `python data_prep.py --images ../data/.raw_image --annotations ../data/.segmented_images/merged_project.json --visualize`
-- `python unn.py`
-- `python unn_test.py --model best_model.pth --test_images data/test/images --test_annotations data/test/annotations`
+# Example Usage
+If you want to run the model training / testing yourself, the commands below are a starting point
+
+- First, you'll want to process the data in to the correct format: `python data_prep.py --images ../data/.raw_image --annotation ../data/.segmented_images/merged_project.json --visualize`
+- Then you'll want to actually train the model with that data: `python unn.py`
+- And finally, you can test the model! `python unn_test.py --model best_model.pth` 
+* Note: This is running the model in eval mode, but you can also run it in predict mode. See more by using the `-h` flag
