@@ -295,15 +295,15 @@ def main():
 
     # Create datasets
     train_dataset = ClimbingWallDataset(
-        images_dir='./data/train/images',
-        masks_dir='./data/train/annotations',
+        images_dir='../data/processed/train/images',
+        masks_dir='../data/processed/train/annotations',
         transform=image_transforms,
         mask_transform=mask_transforms
     )
 
     val_dataset = ClimbingWallDataset(
-        images_dir='./data/val/images',
-        masks_dir='./data/val/annotations',
+        images_dir='../data/processed/val/images',
+        masks_dir='../data/processed/val/annotations',
         transform=image_transforms,
         mask_transform=mask_transforms
     )
@@ -326,13 +326,13 @@ def main():
         train_loader=train_loader,
         val_loader=val_loader,
         optimizer=optimizer,
-        num_epochs=100
+        num_epochs=5_000
     )
 
     print("Training complete")
 
     # Save the final model
-    torch.save(trained_model.state_dict(), 'climbing_wall_segmentation_model.pth')
+    torch.save(trained_model.state_dict(), 'latest_segmentation_model.pth')
 
 if __name__ == "__main__":
     main()
