@@ -265,8 +265,8 @@ def main():
     parser.add_argument('--model', type=str, required=True, help='Path to the trained model')
     parser.add_argument('--mode', type=str, default='evaluate', choices=['evaluate', 'predict'], 
                         help='Evaluation mode: evaluate test set or predict single image')
-    parser.add_argument('--test_images', type=str, help='Path to test images directory')
-    parser.add_argument('--test_annotations', type=str, help='Path to test annotations directory')
+    parser.add_argument('--test_images', default='../data/processed/test/images/', type=str, help='Path to test images directory')
+    parser.add_argument('--test_annotations', default='../data/processed/test/annotations/', type=str, help='Path to test annotations directory')
     parser.add_argument('--image', type=str, help='Path to single image for prediction')
     parser.add_argument('--output', type=str, help='Output directory for results')
 
