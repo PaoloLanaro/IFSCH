@@ -4,7 +4,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 import datetime
-
+import os
 """
     Image is a file path
 """
@@ -40,11 +40,24 @@ if __name__ == '__main__':
     for i in range(8):
         plt.clf()
         plt.subplot(1, 2, 1)
+
+        image_path = os.path.join('data', f'V{i}', '1.jpg')
+        print("Trying to read:", image_path)
+        print("Full path:", os.path.abspath(image_path))
+
+        img = cv2.imread(image_path)
+        if img is None:
+            print("Failed to load image.")
+        else:
+            print("Image loaded successfully.")
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGBA)
+            plt.imshow(img)
         plt.imshow(cv2.cvtColor(cv2.imread(f'data/V{i}/1.jpg'), cv2.COLOR_BGR2RGBA))
         plt.title(f'Original {i}')
 
         plt.subplot(1, 2, 2)
         plt.imshow(detect_hold(f'data/V{i}/1.jpg'))  # Assuming pic_list contains 10 processed images
         plt.title(f'Processed {i}')
-        plt.savefig(f'data/blue/V{i}_blue.jpg')
+        plt.show()
+        #plt.savefig(f'data/blue/V{i}_blue.jpg')
     
