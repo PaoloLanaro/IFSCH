@@ -290,7 +290,7 @@ def main():
     print(f"Using device: {device}")
 
     # current optimal image size
-    image_size = 128
+    image_size = 192
 
     # Define transforms
     image_transforms = transforms.Compose([
@@ -330,7 +330,7 @@ def main():
 
     # Define optimizer
     # tested optimal optimizer and learning rate
-    optimizer = torch.optim.Adam(model.parameters(), lr=0.0005)
+    optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
     # Train the model
     trained_model, loss_history = train_model(
