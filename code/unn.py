@@ -9,7 +9,10 @@ import json
 import numpy as np
 from PIL import Image
 from torch.utils.data import Dataset, DataLoader
+import matplotlib.pyplot as plt
 import cv2
+
+import time
 
 class UNet(nn.Module):
     def __init__(self, n_channels=3, n_classes=2):
@@ -28,6 +31,7 @@ class UNet(nn.Module):
 
         # Drop some amount of information so that we don't overfit and regularize
         self.pool = nn.MaxPool2d(2)
+        # tested optimal dropout rate
         self.dropout = nn.Dropout(0.3)
         self.bottleneck = self.double_conv(512, 1024)
 
@@ -86,6 +90,8 @@ class UNet(nn.Module):
 
     def double_conv(self, in_channels, out_channels):
         """Double convolution block with batch normalization"""
+        # Padding allows the output image to be the same as the input size
+        # Bath normalization allows for stabilizing the neural net during training
         return nn.Sequential(
             nn.Conv2d(in_channels, out_channels, kernel_size=3, padding=1),
             nn.BatchNorm2d(out_channels),
@@ -213,6 +219,7 @@ def train_model(model, device, train_loader, val_loader, optimizer, num_epochs=2
     Training function for the segmentation model
     """
     best_val_loss = float('inf')
+    loss_history = []
 
     for epoch in range(num_epochs):
         # Training phase
@@ -269,27 +276,31 @@ def train_model(model, device, train_loader, val_loader, optimizer, num_epochs=2
 
         print(f'Epoch {epoch+1}/{num_epochs}, Train Loss: {round(epoch_loss, 6)}, Val Loss: {round(val_loss, 6)}')
 
+        loss_history.append(val_loss)
         # Save the best model
         if val_loss < best_val_loss:
             best_val_loss = val_loss
             torch.save(model.state_dict(), 'best_model.pth')
 
-    return model
+    return model, loss_history
 
 def main():
     # Set training device
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print(f"Using device: {device}")
 
+    # current optimal image size
+    image_size = 192
+
     # Define transforms
     image_transforms = transforms.Compose([
-        transforms.Resize((256, 256)), transforms.ToTensor(),
+        transforms.Resize((image_size, image_size)), transforms.ToTensor(),
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     ])
 
     mask_transforms = transforms.Compose([
         transforms.ToPILImage(),
-        transforms.Resize((256, 256), interpolation=transforms.InterpolationMode.NEAREST)
+        transforms.Resize((image_size, image_size), interpolation=transforms.InterpolationMode.NEAREST)
         # transforms.ToTensor()
     ])
 
@@ -309,7 +320,8 @@ def main():
     )
 
     # Create data loaders
-    batch_size = 8
+    # tested optimal batch size
+    batch_size = 2
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=4)
     val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=4)
 
@@ -317,23 +329,40 @@ def main():
     model = UNet(n_channels=3, n_classes=2).to(device)
 
     # Define optimizer
+    # tested optimal optimizer and learning rate
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
     # Train the model
-    trained_model = train_model(
+    trained_model, loss_history = train_model(
         model=model,
         device=device,
         train_loader=train_loader,
         val_loader=val_loader,
         optimizer=optimizer,
-        num_epochs=5_000
+        num_epochs=250
     )
 
     print("Training complete")
+
+    plt.figure(figsize=(10, 6))
+    plt.plot(range(1, len(loss_history) + 1), loss_history, marker='o', linestyle='-', markersize=3)
+    plt.title('Validation Loss Over Epochs')
+    plt.xlabel('Epochs')
+    plt.ylabel('Loss')
+    plt.grid(True)
+    plt.tight_layout()
+
+    # Save the plot
+    plt.savefig('loss_history.png')
+    plt.show()
 
     # Save the final model
     torch.save(trained_model.state_dict(), 'latest_segmentation_model.pth')
 
 if __name__ == "__main__":
+    start_time = time.time()
     main()
+    end_time = time.time()
+    total_minutes = (end_time - start_time) / 60
+    print(f'Finished training in {round(total_minutes, 4)} minutes')
 
