@@ -1,29 +1,13 @@
-# [AI Project for CS4100](https://github.com/PaoloLanaro/AI-project)
- - Currently a placeholder name for the project
-Should we greyscale the images?
+# [IFSCH](https://github.com/PaoloLanaro/IFSCH)
 
-https://www.kaggle.com/datasets/tomasslama/indoor-climbing-gym-hold-segmentation 
+## Project Proposal can be found [here](./PROPOSAL.md)
 
-### Project Proposal can be found [here](./PROPOSAL.md)
-
-## Abstract
-
-## Introduction
-
-## Background
-
-## Related work
-
-## Project Description
-
-## Experiments
-
-## Conclusion
-
+## You can find a paper written about this project at the following [Google Drive](https://drive.google.com/drive/folders/1HcOiky990kZHop5Rd6nI1gyB_Lbn-qSH?usp=sharing)
 
 # Example Usage
-If you want to run the model training / testing yourself, the commands below are a starting point
+* If you'd like to download pretrained models, you can do so by following [Google Drive](https://drive.google.com/drive/folders/1HcOiky990kZHop5Rd6nI1gyB_Lbn-qSH?usp=sharing) link
 
+* If you want to run the model training / testing yourself, the commands below are a starting point
 ## Combinatorial Object Detection:
 - `python canny_test.py --mode evaluate --show --colors red yellow purple`
 - `python canny_test.py --colors yellow purple --image ../data/train/images/4.jpg --mode predict`
