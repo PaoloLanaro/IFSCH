@@ -339,7 +339,7 @@ def main():
         train_loader=train_loader,
         val_loader=val_loader,
         optimizer=optimizer,
-        num_epochs=150
+        num_epochs=250
     )
 
     print("Training complete")
