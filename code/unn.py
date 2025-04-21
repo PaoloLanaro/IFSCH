@@ -219,7 +219,8 @@ def train_model(model, device, train_loader, val_loader, optimizer, num_epochs=2
     Training function for the segmentation model
     """
     best_val_loss = float('inf')
-    loss_history = []
+    train_loss_history = []
+    val_loss_history = []
 
     for epoch in range(num_epochs):
         # Training phase
@@ -275,14 +276,14 @@ def train_model(model, device, train_loader, val_loader, optimizer, num_epochs=2
         val_loss = val_loss / len(val_loader.dataset)
 
         print(f'Epoch {epoch+1}/{num_epochs}, Train Loss: {round(epoch_loss, 6)}, Val Loss: {round(val_loss, 6)}')
-
-        loss_history.append(val_loss)
+        train_loss_history.append(epoch_loss)
+        val_loss_history.append(val_loss)
         # Save the best model
         if val_loss < best_val_loss:
             best_val_loss = val_loss
             torch.save(model.state_dict(), 'best_model.pth')
 
-    return model, loss_history
+    return model, train_loss_history, val_loss_history
 
 def main():
     # Set training device
@@ -333,7 +334,7 @@ def main():
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
     # Train the model
-    trained_model, loss_history = train_model(
+    trained_model, train_loss_history, val_loss_history = train_model(
         model=model,
         device=device,
         train_loader=train_loader,
@@ -345,8 +346,10 @@ def main():
     print("Training complete")
 
     plt.figure(figsize=(10, 6))
-    plt.plot(range(1, len(loss_history) + 1), loss_history, marker='o', linestyle='-', markersize=3)
-    plt.title('Validation Loss Over Epochs')
+    plt.plot(range(1, len(train_loss_history) + 1), train_loss_history, marker='o', linestyle='-', markersize=3, label="Train Loss")
+    plt.plot(range(1, len(val_loss_history) + 1), val_loss_history, marker='o', linestyle='-', markersize=3, label="Validation Loss")
+    plt.legend()
+    plt.title('Train and Validation Loss Over Epochs')
     plt.xlabel('Epochs')
     plt.ylabel('Loss')
     plt.grid(True)
